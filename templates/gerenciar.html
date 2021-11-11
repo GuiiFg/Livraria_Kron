@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Livraria Kron</title>
+        <link rel="stylesheet" href="../static/gerenciar.css">
+    </head>
+    <body>
+        <div class="div-menu">
+            <div>
+                <h1 class="titulo">Livraria Kron</h1>
+            </div>
+            <div>
+
+                {% if acess == 1 %}
+                    <a href="/meus_livros">Meus Livros</a>
+                {% endif %}
+
+                {% if acess == 0 %}
+                <a href="/gerenciar">Gerenciar Livros</a>
+                <a href="/alugar">Alugar</a>
+                {% endif %}
+
+                <a href="/homepage">Banca</a>
+                <a href="/log_out">Sair</a>
+            </div>
+        </div>
+        
+        <div class="div-session">
+            <div>
+                <h1>Gerenciar</h1>
+            </div>
+            <div>
+                <img src="../static/images/gerenciar/Setup-amico.svg"/>
+            </div>
+        </div>
+
+        <div class="div-session">
+            <div class="div-content">
+                
+                <div>
+                    <form action="/registrar-criar" method="POST">
+                        <h1>Modificar / Criar</h1>
+                        <br/>
+                        <input type="number" name="id" placeholder="ID" required/>
+                        <br/>
+                        <br/>
+                        <input type="text" name="nome" placeholder="Nome" required/>
+                        <br/>
+                        <br/>
+                        <input type="text" name="genero" placeholder="Gênero" required/>
+                        <br/>
+                        <br/>
+                        <input type="text" name="quantidade" placeholder="Quantidade loco" required/>
+                        <br/>
+                        <br/>
+                        <input type="text" name="autor" placeholder="Autor" required/>
+                        <br/>
+                        <br/>
+                        <input type="number" name="ano" placeholder="Ano" required/>
+                        <br/>
+                        <br/>
+                        <input type="text" name="edicao" placeholder="Edição" required/>
+                        <br/>
+                        <br/>
+                        <input type="number" name="paginas" placeholder="Páginas" required/>
+                        <br/>
+                        <br/>
+                        <button type="submit">Enviar</button>
+                    </form>
+                </div>
+
+
+                <div>
+                    <form action="/excluir-livro" method="POST">
+                        <h1>Excluir</h1>
+                        <br/>
+                        <input type="number" name="id" placeholder="ID" required/>
+                        <br/>
+                        <br/>
+                        <button type="submit">Excluir</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </body>
+</html>

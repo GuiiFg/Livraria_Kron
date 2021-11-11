@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Livraria Kron</title>
+        <link rel="stylesheet" href="../static/gerenciar.css">
+    </head>
+    <body>
+        <div class="div-menu">
+            <div>
+                <h1 class="titulo">Livraria Kron</h1>
+            </div>
+            <div>
+
+                {% if acess == 1 %}
+                    <a href="/meus_livros">Meus Livros</a>
+                {% endif %}
+
+                {% if acess == 0 %}
+                <a href="/gerenciar">Gerenciar Livros</a>
+                <a href="/alugar">Alugar</a>
+                {% endif %}
+
+                <a href="/homepage">Banca</a>
+                <a href="/log_out">Sair</a>
+            </div>
+        </div>
+        
+        <div class="div-session">
+            <div>
+                <h1>Alugar</h1>
+            </div>
+            <div>
+                <img src="../static/images/gerenciar/Setup-amico.svg"/>
+            </div>
+        </div>
+
+        <div class="div-session">
+            <div class="div-content">
+                
+                <div>
+                    <form>
+                        <h1>Alugar um livro</h1>
+                        <br/>
+                        <p>ID do livro</p>
+                        <input type="number" name="id_livro" placeholder="ID" required/>
+                        <br/>
+                        <br/>
+                        <p>ID do cliente</p>
+                        <input type="number" name="id_cliente" placeholder="ID" required/>
+                        <br/>
+                        <br/>
+                        <p>Data de devolução</p>
+                        <input type="date" name="data" placeholder="Data" required/>
+                        <br/>
+                        <br/>
+                        <button type="submit">Enviar</button>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+
+    </body>
+</html>

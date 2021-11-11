@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Livraria Kron</title>
+        <link rel="stylesheet" href="../static/homepage.css">
+    </head>
+    <body>
+        <div class="div-menu">
+            <div>
+                <h1 class="titulo">Livraria Kron</h1>
+            </div>
+            <div>
+
+                {% if acess == 1 %}
+                    <a href="/meus_livros">Meus Livros</a>
+                {% endif %}
+
+                {% if acess == 0 %}
+                <a href="/gerenciar">Gerenciar Livros</a>
+                <a href="/alugar">Alugar</a>
+                {% endif %}
+
+                <a href="/homepage">Banca</a>
+                <a href="/log_out">Sair</a>
+            </div>
+        </div>
+
+        
+        <div class="div-title">
+            <div class="div-image">
+                <h1 class="h-titulo">Seja Bem Vindo a Livraria Kron!</h1>
+                <img src="../static/images/homepage/Library-bro.svg"/>
+            </div>
+        </div>
+
+        <div class="div-pesquisa">
+            <form action="/pesquisar" method="POST">
+                <div>
+                    <p>Nome</p>
+                </div>
+                <div>
+                    <input type="text" name="nome_livro" placeholder="João e Maria" />
+                </div>
+                <div>
+                    <button type="submit">Pesquisar</button>
+                </div>
+            </form>
+        </div>
+
+        <div class="div-content">
+            <table class="cl-tabela">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nome</th>
+                        <th>Gênero</th>
+                        <th>Quantidade loco</th>
+                        <th>Quantidade cliente</th>
+                        <th>Autor</th>
+                        <th>Ano</th>
+                        <th>Edição</th>
+                        <th>Páginas</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    {% for livro in listadelivros %}
+
+                    <tr>
+                        <td>{{livro.id}}</td>
+                        <td>{{livro.nome}}</td>
+                        <td>{{livro.genero}}</td>
+                        <td>{{livro.quantidade_loco}}</td>
+                        <td>{{livro.quantidade_cliente}}</td>
+                        <td>{{livro.autor}}</td>
+                        <td>{{livro.ano}}</td>
+                        <td>{{livro.edicao}}</td>
+                        <td>{{livro.paginas}}</td>
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+            </table>
+        </div>
+            
+
+    </body>
+</html>

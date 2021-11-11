@@ -1,0 +1,53 @@
+body{
+    background-color: #ff0088;
+    margin: 0px;
+    padding: 0px;
+    font-family: Cascadia Mono;
+}
+
+h1{
+    color: white;
+    font-weight: bold;
+    text-align: center;
+}
+
+button{
+    width: 100%;
+    height: 50px;
+    background-color: #ff0088;
+    border: none;
+    border-radius: 15px;
+    font-family: Cascadia Mono;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+button:hover{
+    background-color: #ca006c;
+}
+
+.div-backg{
+    width: 100%;
+    height: 80vh;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.div-form{
+    background-color: #FB89C5;
+    padding: 20px;
+    border: none;
+    border-radius: 15px;
+    width: 300px;
+}
+
+.cl-input{
+    width: 100%;
+    outline: none;
+    height: 30px;
+    border: none;
+    border-radius: 5px;
+}

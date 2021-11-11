@@ -1,0 +1,96 @@
+body{
+    margin: 0px;
+}
+
+.div-menu{
+    width: 100%;
+    height: 100px;
+    background-color: #FB89C5;
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.div-menu div{
+    display: inline-block;
+    align-items: center;
+    margin-left: 50px;
+    margin-right: 50px;
+}
+
+.div-menu h1{
+    font-family: Cascadia Mono;
+    color: white;
+    font-weight: bold;
+}
+
+.div-menu a{
+    color: white;
+    margin-left: 10px;
+    margin-right: 10px;
+    font-family: Cascadia Mono;
+    color: white;
+    font-weight: bold;
+    text-decoration: none;
+    border: none;
+    border-radius: 20px;
+    padding: 10px;
+}
+.div-menu a:hover{
+    background-color: #ff43a4;
+}
+
+.div-session{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    font-family: Cascadia Mono;
+}
+
+.div-session img{
+    height: 300px;
+}
+
+.div-content{
+    margin: 10px;
+}
+
+.div-content div{
+    border: none;
+    border-radius: 20px;
+    background-color: #eeeeee;
+    padding: 20px;
+    margin-top: 10px;
+    border: 2px solid #ff43a4;
+}
+
+.div-content h1{
+    padding: 0px;
+    margin: 0px;
+}
+
+.div-content input{
+    height: 30px;
+    width: 500px;
+    border: none;
+    outline: none;
+    border-radius: 10px;
+}
+
+.div-content button{
+    font-family: Cascadia Mono;
+    width: 100%;
+    height: 35px;
+    color: white;
+    font-weight: bold;
+    background-color: #ff43a4;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.div-content button:hover{
+    background-color: #d82f86;
+}
