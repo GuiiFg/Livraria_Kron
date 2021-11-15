@@ -58,3 +58,4 @@ class Livro():
     @property
     def paginas (self):
         return self.__paginas
+

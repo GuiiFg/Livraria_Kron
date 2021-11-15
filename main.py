@@ -25,6 +25,11 @@ def homepage():
     if sessao.is_loged == True: 
         livros = Dao.Get_livros()
 
+        if sessao.filtro != "":
+            import pandas as pd
+
+            livros = livros[[sessao.filtro in x for x in livros['nome']]]            
+
         lista_livros = [ Produtos.Livro(
             id = row.id,
             nome = row.nome, 
@@ -37,7 +42,8 @@ def homepage():
             paginas = row.paginas
         ) for index, row in livros.iterrows()]
 
-        return render_template("homepage.html", acess= sessao.tipo_usuario, listadelivros = lista_livros)
+        return render_template("homepage.html", acess= sessao.tipo_usuario, listadelivros = lista_livros,
+        texto_filtro = sessao.filtro)
     else:
         return redirect("/")
 
@@ -120,6 +126,16 @@ def excluir_livro():
     Dao.Excluir_livro(id)
 
     return redirect('/gerenciar') 
+
+
+@app.route("/pesquisar", methods=["POST"])
+def pesquisar():
+    
+    nome = request.form['nome_livro']
+
+    sessao.filtro = nome
+
+    return redirect('/homepage') 
 
 
 
