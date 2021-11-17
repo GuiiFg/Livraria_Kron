@@ -285,6 +285,4 @@ for index, row in livros.iterrows():
     );
     "
 
-    print(query)
-
     Insert_livros(query)"""

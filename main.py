@@ -119,8 +119,6 @@ def entrar():
         sessao.tipo_usuario = response[2]
         sessao.usuario_data = response[1][0]
 
-        print(sessao.usuario_data.nick)
-
         return redirect("/homepage")
 
     else:

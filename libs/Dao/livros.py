@@ -29,7 +29,6 @@ def modificar_livros(
     edicao = None,
     paginas = None):
 
-    print("entrei")
 
     from . import conn as Connect_db
 
@@ -60,7 +59,6 @@ def modificar_livros(
     query += f" WHERE id = {int(id)}"
 
 
-    print(query)
 
     Connect_db.Insert_livros(query)
 
@@ -143,8 +141,6 @@ def alugar(
         '{dia_in}',
         '{data}'
         );"""
-
-    print(query)
 
     Connect_db.Insert_Alugados(query)
 
