@@ -1,15 +1,13 @@
 CREATE DATABASE Livraria_Kron;
 
 USE Livraria_Kron;
+
 CREATE TABLE Clientes_tb(
     nome VARCHAR(100) NOT NULL,
     nick VARCHAR(50) NOT NULL PRIMARY KEY, 
     senha VARCHAR(400) NOT NULL,
     tipo ENUM( '0', '1') NOT NULL
 );
-
-SELECT * FROM Clientes_tb;
-
 
 CREATE TABLE Livros_tb(
 	  id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -23,10 +21,6 @@ CREATE TABLE Livros_tb(
     paginas VARCHAR(40)
 );
 
-#INSERT INTO Livros_tb(nome, genero, quantidade_loco, quantidade_cliente, autor, ano, edicao, paginas) VALUES();
-
-
-SELECT * FROM livros_tb;
 
 CREATE TABLE Alugados_tb(
  	  id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -38,7 +32,6 @@ CREATE TABLE Alugados_tb(
     dia_out VARCHAR(10) NOT NULL
 );
 
-SELECT * FROM Alugados_tb;
 
 CREATE TABLE Multas_tb(
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
