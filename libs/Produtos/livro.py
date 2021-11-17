@@ -59,3 +59,51 @@ class Livro():
     def paginas (self):
         return self.__paginas
 
+class Livros_Alugados():
+
+    def __init__(self,
+    id,
+    ci,
+    cliente,
+    id_livro,
+    nome_livro,
+    dia_in,
+    dia_out):
+
+        self.__id = id
+        self.__ci = ci
+        self.__cliente = cliente
+        self.__id_livro = id_livro
+        self.__nome_livro = nome_livro
+        self.__dia_in = dia_in
+        self.__dia_out = dia_out
+
+    @property
+    def id (self):
+        return self.__id
+
+    @property
+    def ci (self):
+        return self.__ci
+
+    @property
+    def cliente (self):
+        return self.__cliente
+
+    @property
+    def id_livro (self):
+        return self.__id_livro
+
+    @property
+    def nome_livro (self):
+        return self.__nome_livro
+
+    @property
+    def dia_in (self):
+        return self.__dia_in
+
+    @property
+    def dia_out (self):
+        return self.__dia_out
+
+    

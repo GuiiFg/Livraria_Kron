@@ -41,22 +41,38 @@
             <div class="div-content">
                 
                 <div>
-                    <form>
+                    <form action="/alugar_livro" method="POST">
                         <h1>Alugar um livro</h1>
                         <br/>
                         <p>ID do livro</p>
                         <input type="number" name="id_livro" placeholder="ID" required/>
                         <br/>
                         <br/>
-                        <p>ID do cliente</p>
-                        <input type="number" name="id_cliente" placeholder="ID" required/>
+                        <p>Nick do cliente</p>
+                        <input type="text" name="nick_cliente" placeholder="Nick" required/>
                         <br/>
                         <br/>
                         <p>Data de devolução</p>
                         <input type="date" name="data" placeholder="Data" required/>
                         <br/>
                         <br/>
-                        <button type="submit">Enviar</button>
+                        <button type="submit">Alugar</button>
+                    </form>
+                </div>
+
+                <div>
+                    <form action="/devolver_livro" method="POST">
+                        <h1>Devolver um livro</h1>
+                        <br/>
+                        <p>ID do livro</p>
+                        <input type="number" name="id_livro" placeholder="ID" required/>
+                        <br/>
+                        <br/>
+                        <p>Nick do cliente</p>
+                        <input type="text" name="nick_cliente" placeholder="Nick" required/>
+                        <br/>
+                        <br/>
+                        <button type="submit">Devolver</button>
                     </form>
                 </div>
 

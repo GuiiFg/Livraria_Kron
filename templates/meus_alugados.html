@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Livraria Kron</title>
+        <link rel="stylesheet" href="../static/meus_alugados.css">
+    </head>
+    <body>
+        <div class="div-menu">
+            <div>
+                <h1 class="titulo">Livraria Kron</h1>
+            </div>
+            <div>
+
+                {% if tipo_acesso == 1 %}
+                    <a href="/meus_livros">Meus Livros</a>
+                {% endif %}
+
+                {% if tipo_acesso == 0 %}
+                    <a href="/gerenciar">Gerenciar Livros</a>
+                    <a href="/alugar">Alugar</a>
+                {% endif %}
+
+                <a href="/homepage">Banca</a>
+                <a href="/log_out">Sair</a>
+            </div>
+        </div>
+
+        
+        <div class="div-title">
+            <div class="div-image">
+                <h1 class="h-titulo">Seja Bem Vindo a Livraria Kron!</h1>
+                <img src="../static/images/homepage/Library-bro.svg"/>
+            </div>
+        </div>
+
+        <div class="div-content">
+            <h1 style="padding-left: 20px;">Livros Comigo</h1>
+            <table class="cl-tabela">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>CI</th>
+                        <th>Cliente</th>
+                        <th>Id Livro</th>
+                        <th>Livro</th>
+                        <th>Data de Locação</th>
+                        <th>Devolução</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    {% for livro in listadelivros_alugados %}
+
+                    <tr>
+                        <td>{{livro.id}}</td>
+                        <td>{{livro.ci}}</td>
+                        <td>{{livro.cliente}}</td>
+                        <td>{{livro.id_livro}}</td>
+                        <td>{{livro.nome_livro}}</td>
+                        <td>{{livro.dia_in}}</td>
+                        <td>{{livro.dia_out}}</td>
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+            </table>
+        </div>
+
+        <div class="div-content">
+            <h1 style="padding-left: 20px;">Multas</h1>
+            <table class="cl-tabela">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Cliente</th>
+                        <th>valor</th>
+                        <th>Pago</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    {% for multas in lista_multas %}
+
+                    <tr>
+                        <td>{{multas.id}}</td>
+                        <td>{{multas.cliente}}</td>
+                        <td>{{multas.valor}}</td>
+                        <td>{{multas.pago}}</td>
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+            </table>
+        </div>
+            
+
+    </body>
+</html>

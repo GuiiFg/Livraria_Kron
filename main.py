@@ -19,6 +19,10 @@ def index():
     else:
         return render_template("index.html")
 
+@app.route("/criar_login")
+def criar_login():
+    return render_template("criar_login.html")
+
 
 @app.route("/homepage")
 def homepage():
@@ -62,6 +66,37 @@ def alugar():
     else:
         return redirect("/")
 
+@app.route("/meus_livros")
+def meus_livros():
+    if sessao.is_loged == True: 
+
+        livros_alugados = Dao.Get_livros_alugados(sessao.usuario_data.nick)
+
+        lista_livros = [ Produtos.Livros_Alugados(
+            id = row.id ,
+            ci = row.ci ,
+            cliente = row.cliente ,
+            id_livro = row.id_livro ,
+            nome_livro = row.nome_livro ,
+            dia_in = row.dia_in ,
+            dia_out = row.dia_out 
+        ) for index, row in livros_alugados.iterrows()]
+
+        multas = Dao.Get_multas(sessao.usuario_data.nick)
+
+        lista_multas = [ Produtos.Multa(
+            id = row.id ,
+            cliente = row.cliente ,
+            valor = row.valor ,
+            pago = row.pago 
+        ) for index, row in multas.iterrows()]
+
+        return render_template("meus_alugados.html", tipo_acesso = int(sessao.tipo_usuario), listadelivros_alugados = lista_livros,
+        lista_multas = lista_multas)
+
+    else:
+        return redirect("/")
+
 @app.route("/log_out")
 def sair():
     
@@ -82,12 +117,26 @@ def entrar():
     if response[0]:
         sessao.is_loged = True
         sessao.tipo_usuario = response[2]
-        sessao.usuario_data = response[1]
+        sessao.usuario_data = response[1][0]
+
+        print(sessao.usuario_data.nick)
 
         return redirect("/homepage")
 
     else:
         return redirect("/")
+
+
+@app.route("/criar_cliente", methods=["POST"])
+def criar_cliente():
+
+    nome = request.form['nome']
+    nick = request.form['user']
+    senha = request.form['senha']
+
+    Dao.Criar_cliente(nome, nick, senha)
+    
+    return redirect("/")
 
 
 
@@ -156,7 +205,28 @@ def pesquisar():
 
     sessao.filtro = nome
 
-    return redirect('/homepage') 
+    return redirect('/homepage')
+
+@app.route("/alugar_livro", methods=["POST"])
+def alugar_livro():
+    
+    id_livro = request.form['id_livro']
+    id_cliente = request.form['nick_cliente']
+    data = request.form['data']
+
+    Dao.Alugar_livros(sessao.usuario_data.nick ,id_cliente, id_livro, data)
+
+    return redirect('/homepage')
+
+@app.route("/devolver_livro", methods=["POST"])
+def devolver_livro():
+    
+    id_livro = request.form['id_livro']
+    id_cliente = request.form['nick_cliente']
+
+    Dao.Devolver_livros(id_cliente, id_livro)
+
+    return redirect('/alugar')
 
 
 

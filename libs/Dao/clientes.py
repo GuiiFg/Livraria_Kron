@@ -38,9 +38,6 @@ def fazer_login (nick:str, senha:str):
 
             ) for index, row in df.iterrows()]
 
-        print(df)
-        print(tipo)
-
         return [True, user, tipo]
 
         
@@ -48,5 +45,21 @@ def fazer_login (nick:str, senha:str):
         return [False]
 
 
+def criar_cliente(nome, nick, senha):
 
+    senha = hashlib.md5(senha.encode())
+
+    senhacod = senha.hexdigest()
+
+
+    query = f"""
+    INSERT INTO Clientes_tb VALUES(
+        '{nome}',
+        '{nick}',
+        '{senhacod}',
+        '1'
+    );
+    """
+
+    Connect_db.Insert_clientes(query)
     
