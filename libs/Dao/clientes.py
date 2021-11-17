@@ -1,11 +1,12 @@
 import hashlib
 
+from . import conn as Connect_db
+
 def fazer_login (nick:str, senha:str):
     import pandas as pd
-
     from .. import Cliente
 
-    df = pd.read_csv("C:/Users/Faria/Documents/Estudos/Livraria Kron/database/clientes.csv", ";")
+    df = Connect_db.Query_clientes("SELECT * FROM Clientes_tb")
 
     df = df[df['nick'] == nick]
 
@@ -18,25 +19,27 @@ def fazer_login (nick:str, senha:str):
 
     if senha_banco == senha.hexdigest():
 
-        tipo = senha_banco = list(df.tipo)[0]
+        tipo = list(df.tipo)[0]
 
         if int(tipo) == 1:
 
             user = [ Cliente.Cliente(
                 nome = row.nome,
-                idade = row.idade,
-                id = row.id,
-                livros_alugados = row.livros_alugados
+                nick = row.nick,
+                tipo = row.tipo
 
             ) for index, row in df.iterrows()]
 
         else:
             user = [ Cliente.CI(
                 nome = row.nome,
-                idade = row.idade,
-                id = row.id
+                nick = row.nick,
+                tipo = row.tipo
 
             ) for index, row in df.iterrows()]
+
+        print(df)
+        print(tipo)
 
         return [True, user, tipo]
 

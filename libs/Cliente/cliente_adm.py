@@ -3,12 +3,12 @@ class cliente_interno():
 
     def __init__(self,
     nome,
-    idade,
-    id):
+    nick,
+    tipo):
 
         self.__nome = nome
-        self.__idade = idade
-        self.__id = id
+        self.__nick = nick
+        self.__tipo = tipo
 
     
     @property
@@ -16,9 +16,9 @@ class cliente_interno():
         return self.__nome
 
     @property
-    def idade (self):
-        return self.__idade
+    def nick (self):
+        return self.__nick
 
     @property
-    def id (self):
-        return self.__id
+    def tipo (self):
+        return self.__tipo

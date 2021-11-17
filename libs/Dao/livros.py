@@ -1,13 +1,15 @@
 
 def get_livros ():
 
+    from . import conn as Connet_db
+
     import pandas as pd
 
-    df = pd.read_csv("C:/Users/Faria/Documents/Estudos/Livraria Kron/database/livros.csv", ";")
+    df = Connet_db.Query_livros("SELECT * FROM Livros_tb")
 
     return df
 
-def criar_modificar(
+def modificar_livros(
     id = None,
     nome = None,
     genero = None,
@@ -17,59 +19,80 @@ def criar_modificar(
     edicao = None,
     paginas = None):
 
-    import pandas as pd
+    print("entrei")
 
-    df = pd.read_csv("C:/Users/Faria/Documents/Estudos/Livraria Kron/database/livros.csv", ";")
+    from . import conn as Connect_db
 
-    df = df[df['id'] != int(id)]
-    dfcom = df[df['id'] == int(id)]
+    query = "UPDATE Livros_tb SET "
 
-    if len(dfcom) == 1:
+    if nome != '':
+        query += f" nome='{nome}'"
+    
+    if genero != '':
+        query += f", genero='{genero}'"
 
-        dfcom["id"] = int(id) if id != None else dfcom["id"]
-        dfcom["nome"] = nome if nome != None else dfcom["nome"]
-        dfcom["genero"] = genero if genero != None else dfcom["genero"]
-        dfcom["quantidade_loco"] = int(quantidade) if quantidade != None else dfcom["quantidade_loco"]
-        dfcom["quantidade_cliente"] = 0
-        dfcom["autor"] = autor if autor != None else dfcom["autor"]
-        dfcom["ano"] = int(ano) if ano != None else dfcom["ano"]
-        dfcom["edicao"] = edicao if edicao != None else dfcom["edicao"]
-        dfcom["paginas"] = int(paginas) if paginas != None else dfcom["paginas"]
+    if quantidade != '':
+        query += f", quantidade_loco='{quantidade}'"
 
-        add = dfcom
+    if autor != '':
+        query += f", autor='{autor}'"
 
-    else:
+    if edicao != '':
+        query += f", edicao='{edicao}'"
 
-        add = pd.DataFrame({
-            "id": [int(id)],
-            "nome": [nome],
-            "genero": [genero],
-            "quantidade_loco": [int(quantidade)],
-            "quantidade_cliente": [0],
-            "autor": [autor],
-            "ano": [int(ano)],
-            "edicao": [edicao],
-            "paginas": [int(paginas)]
-        })
+    if ano != '':
+        query += f", ano='{ano}'"
 
-    df = pd.concat([df, add])
+    if paginas != '':
+        query += f", paginas='{paginas}'"
 
-    df = df.sort_values(by=['id'])
+    query += f" WHERE id = {int(id)}"
 
-    df.to_csv("C:/Users/Faria/Documents/Estudos/Livraria Kron/database/livros.csv", ";", index=False)
+
+    print(query)
+
+    Connect_db.Insert_livros(query)
+
+    
+
+
+def Registrar_livros(
+    nome = None,
+    genero = None,
+    quantidade = None,
+    autor = None,
+    ano = None,
+    edicao = None,
+    paginas = None):
+
+    from . import conn as Connect_db
+    
+    query = f"""
+    INSERT INTO Livros_tb(nome, genero, quantidade_loco, quantidade_cliente, autor, ano, edicao, paginas) VALUES(
+    	'{nome}',
+        '{genero}',
+        '{quantidade}',
+        0,
+        '{autor}',
+        '{ano}',
+        '{edicao}',
+        '{paginas}'
+    );
+    """
+
+    Connect_db.Insert_livros(query)
+
 
 def excluir(
     id):
 
-    import pandas as pd
-
-    df = pd.read_csv("C:/Users/Faria/Documents/Estudos/Livraria Kron/database/livros.csv", ";")
-
-    df = df[df['id'] != int(id)]
+    from . import conn as Connect_db
     
-    df = df.sort_values(by=['id'])
+    query = f"""
+    DELETE FROM Livros_tb WHERE id = {int(id)};
+    """
 
-    df.to_csv("C:/Users/Faria/Documents/Estudos/Livraria Kron/database/livros.csv", ";", index=False)
+    Connect_db.Insert_livros(query)
 
 
 

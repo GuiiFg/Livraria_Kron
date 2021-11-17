@@ -42,7 +42,7 @@ def homepage():
             paginas = row.paginas
         ) for index, row in livros.iterrows()]
 
-        return render_template("homepage.html", acess= sessao.tipo_usuario, listadelivros = lista_livros,
+        return render_template("homepage.html", tipo_acesso = int(sessao.tipo_usuario), listadelivros = lista_livros,
         texto_filtro = sessao.filtro)
     else:
         return redirect("/")
@@ -51,14 +51,14 @@ def homepage():
 @app.route("/gerenciar")
 def gerenciar():
     if sessao.is_loged == True: 
-        return render_template("gerenciar.html", acess= sessao.tipo_usuario)
+        return render_template("gerenciar.html", tipo_acesso= int(sessao.tipo_usuario))
     else:
         return redirect("/")
 
 @app.route("/alugar")
 def alugar():
     if sessao.is_loged == True: 
-        return render_template("alugar.html", acess= sessao.tipo_usuario)
+        return render_template("alugar.html", tipo_acesso= int(sessao.tipo_usuario))
     else:
         return redirect("/")
 
@@ -81,10 +81,8 @@ def entrar():
 
     if response[0]:
         sessao.is_loged = True
-        sessao.name = "Admin"
         sessao.tipo_usuario = response[2]
         sessao.usuario_data = response[1]
-
 
         return redirect("/homepage")
 
@@ -93,8 +91,8 @@ def entrar():
 
 
 
-@app.route("/registrar-criar", methods=["POST"])
-def registrar_criar():
+@app.route("/modificar_livro", methods=["POST"])
+def modificar_livro():
     
     id = request.form['id']
     nome = request.form['nome']
@@ -105,8 +103,31 @@ def registrar_criar():
     edicao = request.form['edicao']
     paginas = request.form['paginas']
 
-    Dao.Criar_modificar_livro(
+    Dao.Modificar_livro(
         id,
+        nome,
+        genero,
+        quantidade,
+        autor,
+        ano,
+        edicao,
+        paginas
+    )
+
+    return redirect('/gerenciar')
+
+@app.route("/registrar_livro", methods=["POST"])
+def registrar_livro():
+    
+    nome = request.form['nome']
+    genero = request.form['genero']
+    quantidade = request.form['quantidade']
+    autor = request.form['autor']
+    ano = request.form['ano']
+    edicao = request.form['edicao']
+    paginas = request.form['paginas']
+
+    Dao.Registrar_livros(
         nome,
         genero,
         quantidade,

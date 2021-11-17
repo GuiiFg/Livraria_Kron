@@ -4,14 +4,12 @@ class cliente ():
 
     def __init__(self,
     nome,
-    idade,
-    id,
-    livros_alugados):
+    nick,
+    tipo):
 
         self.__nome = nome
-        self.__idade = idade
-        self.__id = id
-        self.__livros_alugados = livros_alugados
+        self.__nick = nick
+        self.__tipo = tipo
 
     
     @property
@@ -19,13 +17,9 @@ class cliente ():
         return self.__nome
 
     @property
-    def idade (self):
-        return self.__idade
+    def nick (self):
+        return self.__nick
 
     @property
-    def id (self):
-        return self.__id
-
-    @property
-    def livros_alugados (self):
-        return self.__livros_alugados
+    def tipo (self):
+        return self.__tipo
