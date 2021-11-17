@@ -234,6 +234,15 @@ def devolver_livro():
 
     return redirect('/alugar')
 
+@app.route("/pagar_multa", methods=["POST"])
+def pagar_multa():
+
+    id_multa = request.form['id_multa']
+
+    Dao.Pagar_multas(id_multa)
+
+    return redirect('/alugar')
+
 
 if __name__ == "__main__":
 

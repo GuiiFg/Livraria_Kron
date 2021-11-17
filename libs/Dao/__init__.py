@@ -4,6 +4,7 @@ from .livros import get_livros as Get_livros
 from .livros import get_livros_alugados as Get_livros_alugados
 
 from .multas import Get_multas
+from .multas import Pagar_multas
 
 from .livros import modificar_livros as Modificar_livro
 from .livros import Registrar_livros
