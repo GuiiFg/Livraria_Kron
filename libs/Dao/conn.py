@@ -4,7 +4,7 @@ with open("json/db_config.json", 'r') as json_file:
     dados_jsn = json.load(json_file)
 
 
-def Query_clientes (query:str):
+def Query_clientes(query: str):
     import pandas as pd
     import mysql.connector
 
@@ -12,11 +12,11 @@ def Query_clientes (query:str):
     user = acesso['user']
     password = acesso['password']
 
-    mydb = mysql.connector.connect( host='localhost',
-                                    database='Livraria_Kron',
-                                    user=f'{user}',
-                                    password=f'{password}',
-                                    auth_plugin='mysql_native_password')
+    mydb = mysql.connector.connect(host='localhost',
+                                   database='Livraria_Kron',
+                                   user=f'{user}',
+                                   password=f'{password}',
+                                   auth_plugin='mysql_native_password')
 
     mycursor = mydb.cursor()
 
@@ -39,7 +39,8 @@ def Query_clientes (query:str):
 
     return x
 
-def Query_multas (query:str):
+
+def Query_multas(query: str):
     import pandas as pd
     import mysql.connector
 
@@ -47,11 +48,11 @@ def Query_multas (query:str):
     user = acesso['user']
     password = acesso['password']
 
-    mydb = mysql.connector.connect( host='localhost',
-                                    database='Livraria_Kron',
-                                    user=f'{user}',
-                                    password=f'{password}',
-                                    auth_plugin='mysql_native_password')
+    mydb = mysql.connector.connect(host='localhost',
+                                   database='Livraria_Kron',
+                                   user=f'{user}',
+                                   password=f'{password}',
+                                   auth_plugin='mysql_native_password')
 
     mycursor = mydb.cursor()
 
@@ -74,7 +75,8 @@ def Query_multas (query:str):
 
     return x
 
-def Query_alugados (query:str):
+
+def Query_alugados(query: str):
     import pandas as pd
     import mysql.connector
 
@@ -82,11 +84,11 @@ def Query_alugados (query:str):
     user = acesso['user']
     password = acesso['password']
 
-    mydb = mysql.connector.connect( host='localhost',
-                                    database='Livraria_Kron',
-                                    user=f'{user}',
-                                    password=f'{password}',
-                                    auth_plugin='mysql_native_password')
+    mydb = mysql.connector.connect(host='localhost',
+                                   database='Livraria_Kron',
+                                   user=f'{user}',
+                                   password=f'{password}',
+                                   auth_plugin='mysql_native_password')
 
     mycursor = mydb.cursor()
 
@@ -112,7 +114,8 @@ def Query_alugados (query:str):
 
     return x
 
-def Query_livros (query:str):
+
+def Query_livros(query: str):
     import pandas as pd
     import mysql.connector
 
@@ -120,11 +123,11 @@ def Query_livros (query:str):
     user = acesso['user']
     password = acesso['password']
 
-    mydb = mysql.connector.connect( host='localhost',
-                                    database='Livraria_Kron',
-                                    user=f'{user}',
-                                    password=f'{password}',
-                                    auth_plugin='mysql_native_password')
+    mydb = mysql.connector.connect(host='localhost',
+                                   database='Livraria_Kron',
+                                   user=f'{user}',
+                                   password=f'{password}',
+                                   auth_plugin='mysql_native_password')
 
     mycursor = mydb.cursor()
 
@@ -153,8 +156,7 @@ def Query_livros (query:str):
     return x
 
 
-
-def Insert_livros (query:str):
+def Insert_livros(query: str):
     import pandas as pd
     import mysql.connector
 
@@ -162,11 +164,11 @@ def Insert_livros (query:str):
     user = acesso['user']
     password = acesso['password']
 
-    mydb = mysql.connector.connect( host='localhost',
-                                    database='Livraria_Kron',
-                                    user=f'{user}',
-                                    password=f'{password}',
-                                    auth_plugin='mysql_native_password')
+    mydb = mysql.connector.connect(host='localhost',
+                                   database='Livraria_Kron',
+                                   user=f'{user}',
+                                   password=f'{password}',
+                                   auth_plugin='mysql_native_password')
 
     mycursor = mydb.cursor()
 
@@ -181,7 +183,7 @@ def Insert_livros (query:str):
     mydb.close()
 
 
-def Insert_Alugados (query:str):
+def Insert_Alugados(query: str):
     import pandas as pd
     import mysql.connector
 
@@ -189,11 +191,11 @@ def Insert_Alugados (query:str):
     user = acesso['user']
     password = acesso['password']
 
-    mydb = mysql.connector.connect( host='localhost',
-                                    database='Livraria_Kron',
-                                    user=f'{user}',
-                                    password=f'{password}',
-                                    auth_plugin='mysql_native_password')
+    mydb = mysql.connector.connect(host='localhost',
+                                   database='Livraria_Kron',
+                                   user=f'{user}',
+                                   password=f'{password}',
+                                   auth_plugin='mysql_native_password')
 
     mycursor = mydb.cursor()
 
@@ -208,7 +210,7 @@ def Insert_Alugados (query:str):
     mydb.close()
 
 
-def Insert_Multas (query:str):
+def Insert_Multas(query: str):
     import pandas as pd
     import mysql.connector
 
@@ -216,37 +218,11 @@ def Insert_Multas (query:str):
     user = acesso['user']
     password = acesso['password']
 
-    mydb = mysql.connector.connect( host='localhost',
-                                    database='Livraria_Kron',
-                                    user=f'{user}',
-                                    password=f'{password}',
-                                    auth_plugin='mysql_native_password')
-
-    mycursor = mydb.cursor()
-
-    try:
-        mycursor.execute(query)
-
-        mydb.commit()
-
-    except:
-        mydb.rollback()
-
-    mydb.close()
-
-def Insert_clientes (query:str):
-    import pandas as pd
-    import mysql.connector
-
-    acesso = dados_jsn['localhost']
-    user = acesso['user']
-    password = acesso['password']
-
-    mydb = mysql.connector.connect( host='localhost',
-                                    database='Livraria_Kron',
-                                    user=f'{user}',
-                                    password=f'{password}',
-                                    auth_plugin='mysql_native_password')
+    mydb = mysql.connector.connect(host='localhost',
+                                   database='Livraria_Kron',
+                                   user=f'{user}',
+                                   password=f'{password}',
+                                   auth_plugin='mysql_native_password')
 
     mycursor = mydb.cursor()
 
@@ -261,6 +237,31 @@ def Insert_clientes (query:str):
     mydb.close()
 
 
+def Insert_clientes(query: str):
+    import pandas as pd
+    import mysql.connector
+
+    acesso = dados_jsn['localhost']
+    user = acesso['user']
+    password = acesso['password']
+
+    mydb = mysql.connector.connect(host='localhost',
+                                   database='Livraria_Kron',
+                                   user=f'{user}',
+                                   password=f'{password}',
+                                   auth_plugin='mysql_native_password')
+
+    mycursor = mydb.cursor()
+
+    try:
+        mycursor.execute(query)
+
+        mydb.commit()
+
+    except:
+        mydb.rollback()
+
+    mydb.close()
 
 
 """

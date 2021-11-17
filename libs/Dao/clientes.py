@@ -2,7 +2,8 @@ import hashlib
 
 from . import conn as Connect_db
 
-def fazer_login (nick:str, senha:str):
+
+def fazer_login(nick: str, senha: str):
     import pandas as pd
     from .. import Cliente
 
@@ -23,24 +24,23 @@ def fazer_login (nick:str, senha:str):
 
         if int(tipo) == 1:
 
-            user = [ Cliente.Cliente(
-                nome = row.nome,
-                nick = row.nick,
-                tipo = row.tipo
+            user = [Cliente.Cliente(
+                nome=row.nome,
+                nick=row.nick,
+                tipo=row.tipo
 
             ) for index, row in df.iterrows()]
 
         else:
-            user = [ Cliente.CI(
-                nome = row.nome,
-                nick = row.nick,
-                tipo = row.tipo
+            user = [Cliente.CI(
+                nome=row.nome,
+                nick=row.nick,
+                tipo=row.tipo
 
             ) for index, row in df.iterrows()]
 
         return [True, user, tipo]
 
-        
     else:
         return [False]
 
@@ -50,7 +50,6 @@ def criar_cliente(nome, nick, senha):
     senha = hashlib.md5(senha.encode())
 
     senhacod = senha.hexdigest()
-
 
     query = f"""
     INSERT INTO Clientes_tb VALUES(
@@ -62,4 +61,3 @@ def criar_cliente(nome, nick, senha):
     """
 
     Connect_db.Insert_clientes(query)
-    

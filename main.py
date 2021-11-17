@@ -12,12 +12,14 @@ sessao = Sessao.Nova_sessao()
 app = Flask(__name__)
 cors = CORS(app)
 
+
 @app.route("/")
 def index():
     if sessao.is_loged == True:
-        return redirect("/homepage") 
+        return redirect("/homepage")
     else:
         return render_template("index.html")
+
 
 @app.route("/criar_login")
 def criar_login():
@@ -26,80 +28,83 @@ def criar_login():
 
 @app.route("/homepage")
 def homepage():
-    if sessao.is_loged == True: 
+    if sessao.is_loged == True:
         livros = Dao.Get_livros()
 
         if sessao.filtro != "":
             import pandas as pd
 
-            livros = livros[[sessao.filtro in x for x in livros['nome']]]            
+            livros = livros[[sessao.filtro in x for x in livros['nome']]]
 
-        lista_livros = [ Produtos.Livro(
-            id = row.id,
-            nome = row.nome, 
-            genero = row.genero,
-            quantidade_loco = row.quantidade_loco,
-            quantidade_cliente = row.quantidade_cliente,
-            autor = row.autor,
-            ano = row.ano,
-            edicao = row.edicao,
-            paginas = row.paginas
+        lista_livros = [Produtos.Livro(
+            id=row.id,
+            nome=row.nome,
+            genero=row.genero,
+            quantidade_loco=row.quantidade_loco,
+            quantidade_cliente=row.quantidade_cliente,
+            autor=row.autor,
+            ano=row.ano,
+            edicao=row.edicao,
+            paginas=row.paginas
         ) for index, row in livros.iterrows()]
 
-        return render_template("homepage.html", tipo_acesso = int(sessao.tipo_usuario), listadelivros = lista_livros,
-        texto_filtro = sessao.filtro)
+        return render_template("homepage.html", tipo_acesso=int(sessao.tipo_usuario), listadelivros=lista_livros,
+                               texto_filtro=sessao.filtro)
     else:
         return redirect("/")
 
 
 @app.route("/gerenciar")
 def gerenciar():
-    if sessao.is_loged == True: 
-        return render_template("gerenciar.html", tipo_acesso= int(sessao.tipo_usuario))
+    if sessao.is_loged == True:
+        return render_template("gerenciar.html", tipo_acesso=int(sessao.tipo_usuario))
     else:
         return redirect("/")
+
 
 @app.route("/alugar")
 def alugar():
-    if sessao.is_loged == True: 
-        return render_template("alugar.html", tipo_acesso= int(sessao.tipo_usuario))
+    if sessao.is_loged == True:
+        return render_template("alugar.html", tipo_acesso=int(sessao.tipo_usuario))
     else:
         return redirect("/")
 
+
 @app.route("/meus_livros")
 def meus_livros():
-    if sessao.is_loged == True: 
+    if sessao.is_loged == True:
 
         livros_alugados = Dao.Get_livros_alugados(sessao.usuario_data.nick)
 
-        lista_livros = [ Produtos.Livros_Alugados(
-            id = row.id ,
-            ci = row.ci ,
-            cliente = row.cliente ,
-            id_livro = row.id_livro ,
-            nome_livro = row.nome_livro ,
-            dia_in = row.dia_in ,
-            dia_out = row.dia_out 
+        lista_livros = [Produtos.Livros_Alugados(
+            id=row.id,
+            ci=row.ci,
+            cliente=row.cliente,
+            id_livro=row.id_livro,
+            nome_livro=row.nome_livro,
+            dia_in=row.dia_in,
+            dia_out=row.dia_out
         ) for index, row in livros_alugados.iterrows()]
 
         multas = Dao.Get_multas(sessao.usuario_data.nick)
 
-        lista_multas = [ Produtos.Multa(
-            id = row.id ,
-            cliente = row.cliente ,
-            valor = row.valor ,
-            pago = row.pago 
+        lista_multas = [Produtos.Multa(
+            id=row.id,
+            cliente=row.cliente,
+            valor=row.valor,
+            pago=row.pago
         ) for index, row in multas.iterrows()]
 
-        return render_template("meus_alugados.html", tipo_acesso = int(sessao.tipo_usuario), listadelivros_alugados = lista_livros,
-        lista_multas = lista_multas)
+        return render_template("meus_alugados.html", tipo_acesso=int(sessao.tipo_usuario), listadelivros_alugados=lista_livros,
+                               lista_multas=lista_multas)
 
     else:
         return redirect("/")
 
+
 @app.route("/log_out")
 def sair():
-    
+
     sessao.Sair()
 
     return redirect("/")
@@ -133,14 +138,13 @@ def criar_cliente():
     senha = request.form['senha']
 
     Dao.Criar_cliente(nome, nick, senha)
-    
-    return redirect("/")
 
+    return redirect("/")
 
 
 @app.route("/modificar_livro", methods=["POST"])
 def modificar_livro():
-    
+
     id = request.form['id']
     nome = request.form['nome']
     genero = request.form['genero']
@@ -163,9 +167,10 @@ def modificar_livro():
 
     return redirect('/gerenciar')
 
+
 @app.route("/registrar_livro", methods=["POST"])
 def registrar_livro():
-    
+
     nome = request.form['nome']
     genero = request.form['genero']
     quantidade = request.form['quantidade']
@@ -186,46 +191,48 @@ def registrar_livro():
 
     return redirect('/gerenciar')
 
+
 @app.route("/excluir-livro", methods=["POST"])
 def excluir_livro():
-    
+
     id = request.form['id']
 
     Dao.Excluir_livro(id)
 
-    return redirect('/gerenciar') 
+    return redirect('/gerenciar')
 
 
 @app.route("/pesquisar", methods=["POST"])
 def pesquisar():
-    
+
     nome = request.form['nome_livro']
 
     sessao.filtro = nome
 
     return redirect('/homepage')
 
+
 @app.route("/alugar_livro", methods=["POST"])
 def alugar_livro():
-    
+
     id_livro = request.form['id_livro']
     id_cliente = request.form['nick_cliente']
     data = request.form['data']
 
-    Dao.Alugar_livros(sessao.usuario_data.nick ,id_cliente, id_livro, data)
+    Dao.Alugar_livros(sessao.usuario_data.nick, id_cliente, id_livro, data)
 
     return redirect('/homepage')
 
+
 @app.route("/devolver_livro", methods=["POST"])
 def devolver_livro():
-    
+
     id_livro = request.form['id_livro']
     id_cliente = request.form['nick_cliente']
 
     Dao.Devolver_livros(id_cliente, id_livro)
 
     return redirect('/alugar')
-
 
 
 if __name__ == "__main__":

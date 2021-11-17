@@ -4,6 +4,7 @@ def Get_multas(nick):
 
     import pandas as pd
 
-    df = Connet_db.Query_multas(f"SELECT * FROM Multas_tb WHERE cliente = '{nick}'")
+    df = Connet_db.Query_multas(
+        f"SELECT * FROM Multas_tb WHERE cliente = '{nick}'")
 
     return df

@@ -1,5 +1,5 @@
 
-def get_livros ():
+def get_livros():
 
     from . import conn as Connect_db
 
@@ -9,26 +9,28 @@ def get_livros ():
 
     return df
 
-def get_livros_alugados (nick):
+
+def get_livros_alugados(nick):
 
     from . import conn as Connect_db
 
     import pandas as pd
 
-    df = Connect_db.Query_alugados(f"SELECT * FROM Alugados_tb WHERE cliente = '{nick}'")
+    df = Connect_db.Query_alugados(
+        f"SELECT * FROM Alugados_tb WHERE cliente = '{nick}'")
 
     return df
 
-def modificar_livros(
-    id = None,
-    nome = None,
-    genero = None,
-    quantidade = None,
-    autor = None,
-    ano = None,
-    edicao = None,
-    paginas = None):
 
+def modificar_livros(
+        id=None,
+        nome=None,
+        genero=None,
+        quantidade=None,
+        autor=None,
+        ano=None,
+        edicao=None,
+        paginas=None):
 
     from . import conn as Connect_db
 
@@ -55,27 +57,22 @@ def modificar_livros(
             else:
                 query += f", {name}='{value}'"
 
-
     query += f" WHERE id = {int(id)}"
-
-
 
     Connect_db.Insert_livros(query)
 
-    
-
 
 def Registrar_livros(
-    nome = None,
-    genero = None,
-    quantidade = None,
-    autor = None,
-    ano = None,
-    edicao = None,
-    paginas = None):
+        nome=None,
+        genero=None,
+        quantidade=None,
+        autor=None,
+        ano=None,
+        edicao=None,
+        paginas=None):
 
     from . import conn as Connect_db
-    
+
     query = f"""
     INSERT INTO Livros_tb(nome, genero, quantidade_loco, quantidade_cliente, autor, ano, edicao, paginas) VALUES(
     	'{nome}',
@@ -93,10 +90,10 @@ def Registrar_livros(
 
 
 def excluir(
-    id):
+        id):
 
     from . import conn as Connect_db
-    
+
     query = f"""
     DELETE FROM Livros_tb WHERE id = {int(id)};
     """
@@ -104,29 +101,25 @@ def excluir(
     Connect_db.Insert_livros(query)
 
 
-
 def alugar(
-    ci,
-    nick_cliente, 
-    id_livro, 
-    data):
-
-    
+        ci,
+        nick_cliente,
+        id_livro,
+        data):
 
     from . import conn as Connect_db
-    
+
     from datetime import datetime
 
-    df = Connect_db.Query_livros(f"SELECT * FROM Livros_tb WHERE id = '{int(id_livro)}'")
+    df = Connect_db.Query_livros(
+        f"SELECT * FROM Livros_tb WHERE id = '{int(id_livro)}'")
 
     nome_livro = list(df.nome)[0]
     quantidade_loco = list(df.quantidade_loco)[0]
     quantidade_cliente = list(df.quantidade_cliente)[0]
 
-
     query = f"UPDATE Livros_tb SET quantidade_loco={int(quantidade_loco) - 1}, quantidade_cliente = {int(quantidade_cliente) + 1} WHERE id = {int(id_livro)}"
 
-    
     Connect_db.Insert_livros(query)
 
     now = datetime.now()
@@ -146,13 +139,14 @@ def alugar(
 
 
 def devolver(
-    nick_cliente, 
-    id_livro):
+        nick_cliente,
+        id_livro):
 
     from . import conn as Connect_db
     from datetime import datetime
 
-    df_alugados = Connect_db.Query_alugados(f"SELECT * FROM Alugados_tb WHERE cliente = '{nick_cliente}' and id_livro = {int(id_livro)}")
+    df_alugados = Connect_db.Query_alugados(
+        f"SELECT * FROM Alugados_tb WHERE cliente = '{nick_cliente}' and id_livro = {int(id_livro)}")
 
     data = list(df_alugados.dia_out)[0]
     format = "%Y-%m-%d"
@@ -175,13 +169,12 @@ def devolver(
         """
 
         Connect_db.Insert_Multas(query)
-    
 
-    df = Connect_db.Query_livros(f"SELECT * FROM Livros_tb WHERE id = '{int(id_livro)}'")
+    df = Connect_db.Query_livros(
+        f"SELECT * FROM Livros_tb WHERE id = '{int(id_livro)}'")
 
     quantidade_loco = list(df.quantidade_loco)[0]
     quantidade_cliente = list(df.quantidade_cliente)[0]
-
 
     query = f"UPDATE Livros_tb SET quantidade_loco={int(quantidade_loco) + 1}, quantidade_cliente = {int(quantidade_cliente) - 1} WHERE id = {int(id_livro)}"
 
